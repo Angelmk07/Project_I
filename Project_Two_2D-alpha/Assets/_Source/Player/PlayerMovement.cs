@@ -14,20 +14,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform wallSlidePoint;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private  LayerMask wallLayer;
+    [SerializeField] private LayerMask wallLayer;
 
-    [Header("Info")]
-    [SerializeField, ReadOnly] private bool canDash = true;
-    [SerializeField, ReadOnly] private bool isGrounded;
-    [SerializeField, ReadOnly] private bool isTouchingWall;
-    [SerializeField, ReadOnly] private bool isSlide;
-    [SerializeField, ReadOnly] private bool canMove = true;
+    [SerializeField] private bool canDash = true;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isTouchingWall;
+    [SerializeField] private bool isSlide;
+    [SerializeField] private bool canMove = true;
+
+    public Vector3 lastPosition;
     private float speed;
     private float releaseSpeed;
     private void Start()
     {
         speed = DefaultSpeed;
-        
+
     }
 
     private void Update()
@@ -35,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheck != null)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            if (isGrounded)
+            {
+                lastPosition = transform.position;
+            }
         }
 
         if (wallCheck != null)
@@ -71,13 +76,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(bool inputAction)
     {
-        if (inputAction && isGrounded )
+        if (inputAction && isGrounded)
         {
             Debug.Log("Player jump.");
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        else if (inputAction && isSlide && !isGrounded) 
+        else if (inputAction && isSlide && !isGrounded)
         {
             Debug.Log("Wall jump.");
             int wallDirection = isTouchingWall ? (int)Mathf.Sign(transform.localScale.x) : 0;
@@ -90,11 +95,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Dash(bool inputAction)
     {
-        if (inputAction )
+        if (inputAction)
         {
             Debug.Log("Player Dash.");
             rb.velocity = new Vector2(0, rb.velocity.y);
-            rb.AddForce(Vector2.right* (int)Mathf.Sign(transform.localScale.x) * airDashForce, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.right * (int)Mathf.Sign(transform.localScale.x) * airDashForce, ForceMode2D.Impulse);
             Invoke(nameof(ResetDash), dashCooldown);
         }
     }
@@ -124,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         {
             canMove = true;
         }
-        else if(isSlide && !isGrounded)
+        else if (isSlide && !isGrounded)
         {
             canMove = false;
         }
