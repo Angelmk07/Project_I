@@ -7,8 +7,17 @@ public class InputListner : MonoBehaviour
 
     [SerializeField] private KeyCode buttonJump = KeyCode.Space;
     [SerializeField] private KeyCode buttonRun = KeyCode.LeftShift;
-    [SerializeField] private KeyCode buttonAttack = KeyCode.Mouse0;
+    [SerializeField] private KeyCode buttonAttackLight = KeyCode.Mouse0;
+    [SerializeField] private KeyCode buttonAttackHeavy = KeyCode.Mouse0;
+    [SerializeField] private KeyCode buttonDropDown = KeyCode.Mouse0;
     [SerializeField] private KeyCode buttonDash = KeyCode.F;
+
+    private StateMachine _stateMachine;
+
+    public void Construct(StateMachine stateMachine)
+    {
+        _stateMachine = stateMachine;
+    }
 
     void Update()
     {
@@ -21,9 +30,17 @@ public class InputListner : MonoBehaviour
             playerMovement.Dash(Input.GetKeyDown(buttonDash));
         }
 
-        if (playerAttack != null)
+        if (Input.GetKeyDown(buttonAttackLight))
         {
-            playerAttack.Attack(Input.GetKeyDown(buttonAttack));
+            _stateMachine.ChangeState<LightAttack>();
+        }
+        if (Input.GetKeyDown(buttonAttackHeavy))
+        {
+            _stateMachine.ChangeState<HeavyAttack>();
+        }
+        if (Input.GetKeyDown(buttonDropDown))
+        {
+            _stateMachine.ChangeState<DropDownAttack>();
         }
 
     }

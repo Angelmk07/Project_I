@@ -20,6 +20,7 @@ public class HeavyAttack : StateAttack
             if (hit.TryGetComponent<IDamageable>(out IDamageable damageble))
             {
                 damageble.TakeDamage(damage);
+                attackContext.poisonEffect.ApplyPoisonTo(hit.GetComponent<PoisonReceiver>());
             }
         }
     }

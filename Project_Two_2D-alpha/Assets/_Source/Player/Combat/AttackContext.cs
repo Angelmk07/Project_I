@@ -6,9 +6,11 @@ public class AttackContext
 {
     public Transform TransformAttackTarget { get; private set; }
     public LayerMask Layer { get; set; }
-    public AttackContext(Transform transformAttackTarget, LayerMask layer)
+    public PoisonEffect poisonEffect;
+    public AttackContext(Transform transformAttackTarget, LayerMask layer,PoisonEffect poisonEffect)
     {
         this.TransformAttackTarget = transformAttackTarget;
         this.Layer = layer;
+        this.poisonEffect = poisonEffect;
     }
 }

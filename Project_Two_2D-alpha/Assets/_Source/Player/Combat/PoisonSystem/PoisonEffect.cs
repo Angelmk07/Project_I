@@ -8,7 +8,7 @@ public class PoisonEffect : MonoBehaviour
     private int damage = 3;
     public void ApplyPoisonTo(PoisonReceiver receiver)
     {
-        receiver.AddStack();
+        receiver.AddStack(damage);
         receivers.Add(receiver);
     }
     public void RemoveReceiver(PoisonReceiver receiver)
@@ -17,13 +17,18 @@ public class PoisonEffect : MonoBehaviour
     }
     public void TakeAll()
     {
-
+        for(int i =0; i < receivers.Count-1; i++)
+        {
+            receivers[i].StackExplode();
+            RemoveReceiver(receivers[i]);
+        }
     }
     public void TeleportToInfected()
     {
         PoisonReceiver Chosen = receivers[Random.Range(0, receivers.Count)];
         gameObject.transform.position = Chosen.transform.position;
-
+        Chosen.StackExplode();
+        RemoveReceiver(Chosen);
     }
 
 }

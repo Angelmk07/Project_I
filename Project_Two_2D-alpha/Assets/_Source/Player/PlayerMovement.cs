@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, ReadOnly] private bool isTouchingWall;
     [SerializeField, ReadOnly] private bool isSlide;
     [SerializeField, ReadOnly] private bool canMove = true;
+    public bool IsGrounded => isGrounded;
+
     private float speed;
     private float releaseSpeed;
     private void Start()
