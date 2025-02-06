@@ -25,10 +25,12 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 lastPosition;
     private float speed;
     private float releaseSpeed;
+    private int jumpCount = 0;
+    private const int maxJumpCount = 2; // Maximum number of jumps allowed (double jump)
+
     private void Start()
     {
         speed = DefaultSpeed;
-
     }
 
     private void Update()
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 lastPosition = transform.position;
+                jumpCount = 0; // Reset jump count when grounded
             }
         }
 
@@ -71,16 +74,16 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = new Vector2(-1, 1);
             }
         }
-
     }
 
     public void Jump(bool inputAction)
     {
-        if (inputAction && isGrounded)
+        if (inputAction && (isGrounded || jumpCount < maxJumpCount))
         {
             Debug.Log("Player jump.");
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpCount++;
         }
         else if (inputAction && isSlide && !isGrounded)
         {
@@ -90,9 +93,9 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(jumpDirection, ForceMode2D.Impulse);
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-
         }
     }
+
     public void Dash(bool inputAction)
     {
         if (inputAction)
@@ -103,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetDash), dashCooldown);
         }
     }
+
     private void ResetDash()
     {
         canDash = true;

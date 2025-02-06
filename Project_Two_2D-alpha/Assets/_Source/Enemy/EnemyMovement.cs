@@ -14,6 +14,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        HandleAIState();
+    }
+
+    private void CheckWallCollision()
+    {
         if (wallCheck != null)
         {
             isTouchingWall = Physics2D.OverlapCircle(wallCheck.position, 0.1f, wallLayer);
@@ -23,14 +28,23 @@ public class EnemyMovement : MonoBehaviour
                 movingRight = !movingRight;
             }
         }
+    }
 
-        if (enemyStatistics != null && enemyStatistics._AiState == EnemyStatistics.AiState.Move)
+    private void HandleAIState()
+    {
+        CheckWallCollision();
+
+        if (enemyStatistics != null)
         {
-            Move();
-        }
-        else if (enemyStatistics != null && enemyStatistics._AiState == EnemyStatistics.AiState.Attack)
-        {
-            MoveToPlayer();
+            switch (enemyStatistics._AiState)
+            {
+                case EnemyStatistics.AiState.Move:
+                    Move();
+                    break;
+                case EnemyStatistics.AiState.Attack:
+                    MoveToPlayer();
+                    break;
+            }
         }
     }
 
