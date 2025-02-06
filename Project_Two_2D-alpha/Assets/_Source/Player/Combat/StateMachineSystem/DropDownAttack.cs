@@ -12,6 +12,11 @@ public class DropDownAttack : StateAttack
     private readonly float attackOffset = 1.75f;
     private readonly int damage = 2;
     private readonly float speed = 450;
+
+    public DropDownAttack(ScriptableObjectAbilities ability) : base(ability)
+    {
+    }
+
     public override void Start(AttackContext attackContext)
     {
         if (rigidbody2D is null)
