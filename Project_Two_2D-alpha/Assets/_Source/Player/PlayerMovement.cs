@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -16,17 +17,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
 
-    [SerializeField] private bool canDash = true;
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private bool isTouchingWall;
-    [SerializeField] private bool isSlide;
-    [SerializeField] private bool canMove = true;
-
+    [Header("Info")]
+    [SerializeField, ReadOnly] private bool canDash = true;
+    [SerializeField, ReadOnly] private bool isGrounded;
+    [SerializeField, ReadOnly] private bool isTouchingWall;
+    [SerializeField, ReadOnly] private bool isSlide;
+    [SerializeField, ReadOnly] private bool canMove = true;
+    public bool IsGrounded => isGrounded;
+    public event Action Landed;
     public Vector3 lastPosition;
+
+
     private float speed;
     private float releaseSpeed;
     private int jumpCount = 0;
-    private const int maxJumpCount = 2; // Maximum number of jumps allowed (double jump)
+    private const int maxJumpCount = 2;
 
     private void Start()
     {
@@ -41,8 +46,10 @@ public class PlayerMovement : MonoBehaviour
             if (isGrounded)
             {
                 lastPosition = transform.position;
-                jumpCount = 0; // Reset jump count when grounded
+                jumpCount = 0;
+                Landed?.Invoke();
             }
+
         }
 
         if (wallCheck != null)
