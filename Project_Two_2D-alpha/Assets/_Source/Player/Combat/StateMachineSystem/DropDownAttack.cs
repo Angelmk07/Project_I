@@ -13,6 +13,8 @@ public class DropDownAttack : StateAttack
     private BoxCollider2D boxCollider;
     private readonly float speed = 450;
     private bool isdroping;
+    private float _lastAttackTime = -Mathf.Infinity;
+    private float _attackCooldown = 1.5f;
     public DropDownAttack(ScriptableObjectAbilities ability) : base(ability)
     {
         _ability = ability;
@@ -35,6 +37,12 @@ public class DropDownAttack : StateAttack
     {
         if (isdroping)
         {
+            if (Time.time < _lastAttackTime + _attackCooldown)
+            {
+                return;
+            }
+
+            _lastAttackTime = Time.time;
 
             if (_ability.AttackEffect != null)
             {

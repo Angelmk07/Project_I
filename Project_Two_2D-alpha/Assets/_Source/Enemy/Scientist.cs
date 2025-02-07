@@ -19,6 +19,7 @@ public class Scientist : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float detectionRadius = 5f; 
     [SerializeField] private float attackDistance = 2f; 
+    [SerializeField] private bool canMove = true; 
 
     [SerializeField,ReadOnly] private bool isTouchingWall;
     [SerializeField,ReadOnly] private GameObject Potion;
@@ -87,21 +88,25 @@ public class Scientist : MonoBehaviour
 
     private void Move()
     {
-        if (movingRight)
+        if (canMove)
         {
-            transform.localScale = new Vector2(1, 1);
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            if (movingRight)
+            {
+                transform.localScale = new Vector2(1, 1);
+                transform.Translate(Vector2.right * speed * Time.deltaTime);
+            }
+            else
+            {
+                transform.localScale = new Vector2(-1, 1);
+                transform.Translate(Vector2.left * speed * Time.deltaTime);
+            }
         }
-        else
-        {
-            transform.localScale = new Vector2(-1, 1);
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
-        }
+
     }
 
     private void MoveToPlayer()
     {
-        if (player != null)
+        if (player != null&&canMove)
         {
             Vector2 direction = new Vector2( (player.position.x - transform.position.x),0).normalized;
 

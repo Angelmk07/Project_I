@@ -223,7 +223,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -240,8 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9087664248f980e42bbfc735a1806877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 30
+  currentHealth: 30
   _AiState: 1
 --- !u!114 &4719603199216297047
 MonoBehaviour:
@@ -270,6 +270,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 10
+  throwUp: 4
+  canThrow: 1
+  throwCooldown: 2
   enemyStatistics: {fileID: 3180112533715949633}
   wallCheck: {fileID: 5003670135735711274}
   wallLayer:
@@ -280,10 +283,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   PotionPrefub: {fileID: 3412898360118177104, guid: e72b329f4f624374885af1fb92965102, type: 3}
-  ThrowblePlace: {fileID: 1730930346333351625}
-  speed: 0
+  ThrowPlace: {fileID: 1730930346333351625}
+  speed: 1
   detectionRadius: 5
   attackDistance: 5
+  canMove: 1
   isTouchingWall: 0
   Potion: {fileID: 0}
   PotionRb: {fileID: 0}

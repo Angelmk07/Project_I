@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -30,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float speed;
     private float releaseSpeed;
-    private int jumpCount = 0;
-    private const int maxJumpCount = 2;
+    [SerializeField, ReadOnly] private int jumpCount = 0;
+    [SerializeField, ReadOnly] private const int maxJumpCount = 1;
 
     private void Start()
     {
@@ -85,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(bool inputAction)
     {
-        if (inputAction && (isGrounded || jumpCount < maxJumpCount))
+        if (inputAction && (isGrounded || jumpCount < maxJumpCount&& !isSlide))
         {
             Debug.Log("Player jump.");
             rb.velocity = new Vector2(rb.velocity.x, 0);

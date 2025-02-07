@@ -25,7 +25,7 @@ public class Bootstraper : MonoBehaviour
         playerMovement.Landed += _dropDownAttack.PerformAttack;
         attackContext = new AttackContext(playerStatistics.transform, enemyLayer, poisonEffect);
         stateMachine = new StateMachine(_lightAttack, _heavyAttack, _dropDownAttack, attackContext);
-        inputListner.Construct(stateMachine);
+        inputListner.Construct(stateMachine,poisonEffect);
     }
     
 }

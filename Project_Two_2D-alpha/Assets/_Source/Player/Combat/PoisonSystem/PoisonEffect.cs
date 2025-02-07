@@ -17,18 +17,30 @@ public class PoisonEffect : MonoBehaviour
     }
     public void TakeAll()
     {
-        for(int i =0; i < receivers.Count-1; i++)
+        if (receivers.Count != 0)
         {
-            receivers[i].StackExplode();
-            RemoveReceiver(receivers[i]);
+            for (int i = 0; i < receivers.Count - 1; i++)
+            {
+                receivers[i].StackExplode();
+                RemoveReceiver(receivers[i]);
+            }
         }
+
     }
     public void TeleportToInfected()
     {
-        PoisonReceiver Chosen = receivers[Random.Range(0, receivers.Count)];
-        gameObject.transform.position = Chosen.transform.position;
-        Chosen.StackExplode();
-        RemoveReceiver(Chosen);
+        if (receivers.Count != 0)
+        {
+            PoisonReceiver Chosen = receivers[Random.Range(0, receivers.Count)];
+            if(Chosen != null)
+            {
+                gameObject.transform.position = Chosen.transform.position;
+                Chosen.StackExplode();
+                RemoveReceiver(Chosen);
+            }
+
+        }
+
     }
 
 }

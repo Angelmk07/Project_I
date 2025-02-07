@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2973740016569342406}
   - component: {fileID: 2389078331052389996}
   - component: {fileID: 106096207541510384}
+  - component: {fileID: 6464930680695853365}
   m_Layer: 6
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 105542528274521770}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -6.382, y: -3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -138,6 +139,40 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &6464930680695853365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105542528274521770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &371302169048351403
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +370,7 @@ GameObject:
   - component: {fileID: 8838337185056093746}
   - component: {fileID: 6194044317432251602}
   - component: {fileID: 3089675961221341850}
+  - component: {fileID: 7101430874259761080}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -351,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 838648532030257793}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.382, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -465,8 +501,12 @@ MonoBehaviour:
   playerAttack: {fileID: 1760215206280897217}
   buttonJump: 32
   buttonRun: 304
-  buttonAttack: 323
+  buttonAttackLight: 323
+  buttonAttackHeavy: 324
+  buttonDropDown: 103
   buttonDash: 102
+  buttonTakeStack: 113
+  buttonTp: 101
 --- !u!114 &6194044317432251602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,9 +522,9 @@ MonoBehaviour:
   rb: {fileID: 7729255511229067433}
   maxSpeed: 6
   DefaultSpeed: 3
-  jumpForce: 8
-  airDashForce: 0
-  wallDashForce: 0
+  jumpForce: 6
+  airDashForce: 5
+  wallDashForce: 3
   wallReleaseSpeedMultiplier: 1.5
   dashCooldown: 1
   groundCheck: {fileID: 8943812662384287826}
@@ -492,7 +532,7 @@ MonoBehaviour:
   wallSlidePoint: {fileID: 4969961288080722470}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -502,6 +542,7 @@ MonoBehaviour:
   isSlide: 0
   canMove: 1
   lastPosition: {x: 0, y: 0, z: 0}
+  jumpCount: 0
 --- !u!114 &3089675961221341850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +553,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e17a52dbbe938e34e92e8b31f40bce84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7101430874259761080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838648532030257793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86b654c68a3444a428d27f3d92ace7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2201280207176933528
@@ -579,7 +632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Test:'
+  m_text: Shou Case
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1117,7 +1170,7 @@ Transform:
   m_GameObject: {fileID: 7674331650708257502}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -6.382, y: -3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
