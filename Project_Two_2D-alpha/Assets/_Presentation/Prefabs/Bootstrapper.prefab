@@ -47,6 +47,9 @@ MonoBehaviour:
   inputListner: {fileID: 0}
   playerStatistics: {fileID: 0}
   poisonEffect: {fileID: 0}
+  light: {fileID: 11400000, guid: a23eda54575473845b2234378ac8de1a, type: 2}
+  heavy: {fileID: 11400000, guid: a93b91864df61da44a2757f5b53c4b35, type: 2}
+  dropDown: {fileID: 11400000, guid: 9259066570715cb458f020af89eeb77f, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128

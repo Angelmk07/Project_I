@@ -1,34 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class LightAttack : StateAttack
 {
-    private readonly Vector2 boxSize = new Vector2(1.5f, 1f);
-    private readonly float attackOffset = 0.75f;
-    private readonly int damage = 2;
-
+    private ScriptableObjectAbilities _ability;
+    private VisualEffect effectInstance;
+    private BoxCollider2D boxCollider;
     public LightAttack(ScriptableObjectAbilities ability) : base(ability)
     {
+        _ability = ability;
     }
 
     public override void Start(AttackContext attackContext)
     {
-        Vector2 direction = new Vector2(Mathf.Sign(attackContext.TransformAttackTarget.localScale.x), 0);
-        Vector2 position = attackContext.TransformAttackTarget.position;
-        Vector2 attackPosition = position + direction * attackOffset;
+        float direction = Mathf.Sign(attackContext.TransformAttackTarget.localScale.x);
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition, boxSize, 0, attackContext.Layer);
-
-        foreach (Collider2D hit in hits)
+        if (_ability.AttackEffect != null)
         {
-            if (hit.TryGetComponent<IDamageable>(out IDamageable damageble))
+            if (effectInstance == null)
             {
-                damageble.TakeDamage(damage);
-                attackContext.poisonEffect.ApplyPoisonTo(hit.GetComponent<PoisonReceiver>());
+                effectInstance = MonoBehaviour.Instantiate(_ability.AttackEffect, attackContext.TransformAttackTarget.position, _ability.AttackEffect.transform.rotation);
+                boxCollider = effectInstance.GetComponent<BoxCollider2D>();
+            }
+
+            effectInstance.transform.position = attackContext.TransformAttackTarget.position;
+
+            effectInstance.transform.localScale = new Vector3(direction, direction, direction);
+
+            effectInstance.Play();
+        }
+
+
+
+        if (attackContext.Layer != 0)
+        {
+            List<Collider2D> hits = new List<Collider2D>();
+            ContactFilter2D filter = new ContactFilter2D();
+            filter.useTriggers = true;
+            filter.SetLayerMask(attackContext.Layer);
+            boxCollider.OverlapCollider(filter, hits);
+            foreach (Collider2D hit in hits)
+            {
+                Debug.Log(hit);
+                if (hit.TryGetComponent<IDamageable>(out IDamageable damageable))
+                {
+                    damageable.TakeDamage(_ability.Damage);
+
+                    if (attackContext.poisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
+                    {
+                        attackContext.poisonEffect.ApplyPoisonTo(poisonReceiver);
+                    }
+                }
             }
         }
     }
-    
 }
-

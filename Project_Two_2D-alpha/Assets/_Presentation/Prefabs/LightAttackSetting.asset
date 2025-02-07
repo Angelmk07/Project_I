@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83393ae9ed0fcaa41b79e5f06a780e7c, type: 3}
-  m_Name: DropDownAttackSetting
+  m_Name: LightAttackSetting
   m_EditorClassIdentifier: 
-  <AttackBox>k__BackingField: {fileID: 0}
+  <AttackBox>k__BackingField: {fileID: 1093881148811881963, guid: 5f1635a01e6cf0942ae561374f0ba410, type: 3}
   <Damage>k__BackingField: 5
-  <AttackEffect>k__BackingField: {fileID: 0}
+  <AttackEffect>k__BackingField: {fileID: 6226692483358183999, guid: 5f1635a01e6cf0942ae561374f0ba410, type: 3}

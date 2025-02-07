@@ -7,6 +7,7 @@ public class Bootstraper : MonoBehaviour
     [SerializeField] private StateMachine stateMachine;
     [SerializeField] private InputListner inputListner;
     [SerializeField] private PlayerStatistics playerStatistics;
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PoisonEffect poisonEffect;
     [SerializeField] private ScriptableObjectAbilities light;
     [SerializeField] private ScriptableObjectAbilities heavy;
@@ -21,6 +22,7 @@ public class Bootstraper : MonoBehaviour
         _lightAttack = new(light);
         _heavyAttack = new(heavy);
         _dropDownAttack = new(dropDown);
+        playerMovement.Landed += _dropDownAttack.PerformAttack;
         attackContext = new AttackContext(playerStatistics.transform, enemyLayer, poisonEffect);
         stateMachine = new StateMachine(_lightAttack, _heavyAttack, _dropDownAttack, attackContext);
         inputListner.Construct(stateMachine);

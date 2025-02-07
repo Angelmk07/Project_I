@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83393ae9ed0fcaa41b79e5f06a780e7c, type: 3}
-  m_Name: LightAttackSetting
+  m_Name: HeavyAttackSetting
   m_EditorClassIdentifier: 
-  <AttackBox>k__BackingField: {fileID: 0}
-  <Damage>k__BackingField: 5
-  <AttackEffect>k__BackingField: {fileID: 0}
+  <AttackBox>k__BackingField: {fileID: 4683582881066933102, guid: 8917135f1d4625f459834310a043fa30, type: 3}
+  <Damage>k__BackingField: 12
+  <AttackEffect>k__BackingField: {fileID: 4755540875576944836, guid: 8917135f1d4625f459834310a043fa30, type: 3}

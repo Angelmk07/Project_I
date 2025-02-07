@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1670210737281718511}
   - component: {fileID: 1437969253512645026}
   - component: {fileID: 2370096289542442455}
+  - component: {fileID: 4790932769264796603}
   m_Layer: 0
   m_Name: DropAoE
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6099232733085315130}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: -0.017329076, y: 1.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -55,7 +56,13 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 4, y: 1.122035, z: 1}
+        m_Name: Size
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0.3889824, z: 0}
+        m_Name: Center
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -144,7 +151,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.3}
+  m_Offset: {x: 0, y: 0.38898242}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -155,5 +162,17 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.0049977, y: 1.3}
+  m_Size: {x: 4, y: 1.1220351}
   m_EdgeRadius: 0
+--- !u!114 &4790932769264796603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099232733085315130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb693ef51c525f498b42935175e6e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

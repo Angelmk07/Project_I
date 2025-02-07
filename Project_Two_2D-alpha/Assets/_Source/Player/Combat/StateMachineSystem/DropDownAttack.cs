@@ -2,54 +2,76 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class DropDownAttack : StateAttack
 {
     private Rigidbody2D rigidbody2D;
-    private AttackContext attackContext;
-    private bool dropingDown = false;
-    private readonly Vector2 boxSize = new Vector2(3.5f, 0.25f);
-    private readonly float attackOffset = 1.75f;
-    private readonly int damage = 2;
+    private ScriptableObjectAbilities _ability;
+    private VisualEffect effectInstance;
+    private AttackContext _attackContext;
+    private BoxCollider2D boxCollider;
     private readonly float speed = 450;
-
+    private bool isdroping;
     public DropDownAttack(ScriptableObjectAbilities ability) : base(ability)
     {
+        _ability = ability;
     }
 
     public override void Start(AttackContext attackContext)
     {
+        this._attackContext = attackContext;
         if (rigidbody2D is null)
         {
-            rigidbody2D = attackContext.TransformAttackTarget.GetComponent<Rigidbody2D>();
+            rigidbody2D = this._attackContext.TransformAttackTarget.GetComponent<Rigidbody2D>();
         }
-        this.attackContext = attackContext;
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.AddForce(-Vector2.up * speed);
-        dropingDown = true;
-        PerformAttack(attackContext);
+        isdroping = true;
     }
 
 
-    private void PerformAttack(AttackContext attackContext)
+    public void PerformAttack()
     {
-        while (dropingDown)
+        if (isdroping)
         {
-            Vector2 direction = new Vector2(Mathf.Sign(attackContext.TransformAttackTarget.localScale.x), 0);
-            Vector2 position = attackContext.TransformAttackTarget.position;
-            Vector2 attackPosition = position + direction * attackOffset;
-            Debug.Log(attackPosition);
-            Collider2D[] hits = Physics2D.OverlapBoxAll(attackPosition, boxSize, 0, attackContext.Layer);
 
-            foreach (Collider2D hit in hits)
+            if (_ability.AttackEffect != null)
             {
-                if (hit.TryGetComponent<IDamageable>(out IDamageable damageble))
+                if (effectInstance == null)
                 {
-                    damageble.TakeDamage(damage);
-                    attackContext.poisonEffect.ApplyPoisonTo(hit.GetComponent<PoisonReceiver>());
+                    effectInstance = MonoBehaviour.Instantiate(_ability.AttackEffect, _attackContext.TransformAttackTarget.position, _ability.AttackEffect.transform.rotation);
+                    boxCollider = effectInstance.GetComponent<BoxCollider2D>();
+                }
+
+                effectInstance.transform.position = _attackContext.TransformAttackTarget.position;
+                effectInstance.Play();
+            }
+
+
+
+            if (_attackContext.Layer != 0)
+            {
+                List<Collider2D> hits = new List<Collider2D>();
+                ContactFilter2D filter = new ContactFilter2D();
+                filter.useTriggers = true;
+                filter.SetLayerMask(_attackContext.Layer);
+                boxCollider.OverlapCollider(filter, hits);
+                foreach (Collider2D hit in hits)
+                {
+                    Debug.Log(hit);
+                    if (hit.TryGetComponent<IDamageable>(out IDamageable damageable))
+                    {
+                        damageable.TakeDamage(_ability.Damage);
+
+                        if (_attackContext.poisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
+                        {
+                            _attackContext.poisonEffect.ApplyPoisonTo(poisonReceiver);
+                        }
+                    }
                 }
             }
+            isdroping = false;
         }
-
     }
 }

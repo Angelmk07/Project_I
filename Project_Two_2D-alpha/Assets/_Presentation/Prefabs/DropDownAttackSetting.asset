@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83393ae9ed0fcaa41b79e5f06a780e7c, type: 3}
-  m_Name: HeavyAttackSetting
+  m_Name: DropDownAttackSetting
   m_EditorClassIdentifier: 
-  <AttackBox>k__BackingField: {fileID: 0}
-  <Damage>k__BackingField: 5
-  <AttackEffect>k__BackingField: {fileID: 0}
+  <AttackBox>k__BackingField: {fileID: 2370096289542442455, guid: 8c2c945ad9dd7344e8ce74a61288362a, type: 3}
+  <Damage>k__BackingField: 8
+  <AttackEffect>k__BackingField: {fileID: 1670210737281718511, guid: 8c2c945ad9dd7344e8ce74a61288362a, type: 3}

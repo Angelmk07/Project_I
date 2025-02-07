@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatistics : MonoBehaviour
+public class PlayerStatistics : MonoBehaviour,IDamageable
 {
     [SerializeField] private Slider healthSlider;
     [SerializeField] private int maxHealth;

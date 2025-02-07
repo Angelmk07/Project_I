@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, ReadOnly] private bool isSlide;
     [SerializeField, ReadOnly] private bool canMove = true;
     public bool IsGrounded => isGrounded;
+    public event Action Landed;
 
     private float speed;
     private float releaseSpeed;
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheck != null)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            if (isGrounded)
+                Landed?.Invoke();
         }
 
         if (wallCheck != null)
