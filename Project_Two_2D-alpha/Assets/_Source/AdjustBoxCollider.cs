@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.VFX;
 
+[ExecuteInEditMode]
 public class AdjustBoxCollider : MonoBehaviour
 {
     private BoxCollider2D boxCollider;
@@ -13,4 +14,15 @@ public class AdjustBoxCollider : MonoBehaviour
         GetComponent<VisualEffect>().SetVector3("Size", size); 
         GetComponent<VisualEffect>().SetVector3("Center", boxCollider.offset); 
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+        Vector3 size = boxCollider.size;
+        size += Vector3.forward;
+        GetComponent<VisualEffect>().SetVector3("Size", size);
+        GetComponent<VisualEffect>().SetVector3("Center", boxCollider.offset);
+    }
+#endif
 }
