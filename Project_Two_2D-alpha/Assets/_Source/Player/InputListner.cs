@@ -13,6 +13,7 @@ public class InputListner : MonoBehaviour
     [SerializeField] private KeyCode buttonDash = KeyCode.F;
     [SerializeField] private KeyCode buttonTakeStack = KeyCode.Q;
     [SerializeField] private KeyCode buttonTp = KeyCode.E;
+    [SerializeField] private KeyCode buttonProdjectile = KeyCode.V;
 
     private StateMachine _stateMachine;
     private PoisonEffect _poisonEffect;
@@ -46,6 +47,10 @@ public class InputListner : MonoBehaviour
         {
             _stateMachine.ChangeState<DropDownAttack>();
         }
+        if (Input.GetKeyDown(buttonProdjectile))
+        {
+            _stateMachine.ChangeState<ProjectileLaunchState>();
+        }
         if (Input.GetKeyDown(buttonTakeStack))
         {
             _poisonEffect.TakeAll();
@@ -54,5 +59,6 @@ public class InputListner : MonoBehaviour
         {
             _poisonEffect.TeleportToInfected();
         }
+
     }
 }

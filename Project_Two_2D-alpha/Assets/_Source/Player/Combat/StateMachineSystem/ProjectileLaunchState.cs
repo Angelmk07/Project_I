@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class HeavyAttack : StateAttack
+public class ProjectileLaunchState : StateAttack
 {
-    private ScriptableObjectAbilities _ability;
+    private ScriptableObjectAbilitiesProjectile _ability;
     private VisualEffect effectInstance;
     private BoxCollider2D boxCollider;
     private float _lastAttackTime = -Mathf.Infinity;
     private float _attackCooldown = 1.0f;
-    public HeavyAttack(ScriptableObjectAbilities ability) : base(ability)
+    public ProjectileLaunchState(ScriptableObjectAbilitiesProjectile ability) : base(ability)
     {
         _ability = ability;
     }
@@ -39,29 +40,12 @@ public class HeavyAttack : StateAttack
 
             effectInstance.Play();
         }
-
-
-
-        if (attackContext.Layer != 0)
+        Object.Instantiate(_ability.Projectile,attackContext.ProjectileStart.transform.position, _ability.Projectile.transform.rotation);
+        if (_ability.Projectile.TryGetComponent( out Rigidbody2D component))
         {
-            List<Collider2D> hits = new List<Collider2D>();
-            ContactFilter2D filter = new ContactFilter2D();
-            filter.useTriggers = true;
-            filter.SetLayerMask(attackContext.Layer);
-            boxCollider.OverlapCollider(filter, hits);
-            foreach (Collider2D hit in hits)
-            {
-                Debug.Log(hit);
-                if (hit.TryGetComponent<IDamageable>(out IDamageable damageable))
-                {
-                    damageable.TakeDamage(_ability.Damage);
-
-                    if (attackContext.PoisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
-                    {
-                        attackContext.PoisonEffect.ApplyPoisonTo(poisonReceiver);
-                    }
-                }
-            }
+            component.AddForce(attackContext.ProjectileStart.transform.forward*_ability.Speed,ForceMode2D.Impulse);
         }
+    
+
     }
 }

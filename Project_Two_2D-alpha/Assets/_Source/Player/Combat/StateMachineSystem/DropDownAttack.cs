@@ -72,9 +72,9 @@ public class DropDownAttack : StateAttack
                     {
                         damageable.TakeDamage(_ability.Damage);
 
-                        if (_attackContext.poisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
+                        if (_attackContext.PoisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
                         {
-                            _attackContext.poisonEffect.ApplyPoisonTo(poisonReceiver);
+                            _attackContext.PoisonEffect.ApplyPoisonTo(poisonReceiver);
                         }
                     }
                 }

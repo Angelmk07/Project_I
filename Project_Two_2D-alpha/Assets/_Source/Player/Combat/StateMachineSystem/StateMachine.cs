@@ -8,7 +8,7 @@ public class StateMachine
     public StateAttack CurrentState { get; private set; }
     private AttackContext _attackContext;
 
-    public StateMachine(LightAttack lightAttack, HeavyAttack heavyAttack,DropDownAttack dropDownAttack, AttackContext attackContext)
+    public StateMachine(LightAttack lightAttack, HeavyAttack heavyAttack,DropDownAttack dropDownAttack, AttackContext attackContext, ProjectileLaunchState projectile)
     {
         CurrentState = lightAttack;
         _attackContext = attackContext;
@@ -17,7 +17,8 @@ public class StateMachine
         {
             { typeof(LightAttack), lightAttack},
             { typeof(HeavyAttack), heavyAttack},
-            { typeof(DropDownAttack), dropDownAttack}
+            { typeof(DropDownAttack), dropDownAttack},
+            {typeof(ProjectileLaunchState),projectile }
             
         };
     }

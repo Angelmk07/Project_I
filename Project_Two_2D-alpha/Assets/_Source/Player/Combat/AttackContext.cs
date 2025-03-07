@@ -5,12 +5,15 @@ using UnityEngine;
 public class AttackContext
 {
     public Transform TransformAttackTarget { get; private set; }
-    public LayerMask Layer { get; set; }
-    public PoisonEffect poisonEffect;
-    public AttackContext(Transform transformAttackTarget, LayerMask layer,PoisonEffect poisonEffect)
+    public LayerMask Layer { get; private set; }
+    public PoisonEffect PoisonEffect{ get; private set; }
+    public GameObject ProjectileStart{ get; private set; }
+    public AttackContext(Transform transformAttackTarget, LayerMask layer,PoisonEffect poisonEffect, GameObject projectileStart)
     {
-        this.TransformAttackTarget = transformAttackTarget;
-        this.Layer = layer;
-        this.poisonEffect = poisonEffect;
+        TransformAttackTarget = transformAttackTarget;
+        Layer = layer;
+        PoisonEffect = poisonEffect;
+        ProjectileStart = projectileStart;
+
     }
 }

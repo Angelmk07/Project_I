@@ -6,7 +6,7 @@ public class PlayerStatistics : MonoBehaviour,IDamageable
     [SerializeField] private Slider healthSlider;
     [SerializeField] private int maxHealth;
     [SerializeField] private int currentHealth;
-
+    [field:SerializeField]public GameObject ProjectileStart { get; private set; }
     private void Start()
     {
         currentHealth = maxHealth;
@@ -26,4 +26,5 @@ public class PlayerStatistics : MonoBehaviour,IDamageable
             Debug.Log("Player died.");
         }
     }
+    //PlayerInvisibilityManager.Instance.IsInvisible = !PlayerInvisibilityManager.Instance.IsInvisible;
 }

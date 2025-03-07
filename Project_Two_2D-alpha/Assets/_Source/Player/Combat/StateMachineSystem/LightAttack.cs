@@ -54,9 +54,9 @@ public class LightAttack : StateAttack
                 {
                     damageable.TakeDamage(_ability.Damage);
 
-                    if (attackContext.poisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
+                    if (attackContext.PoisonEffect != null && hit.TryGetComponent(out PoisonReceiver poisonReceiver))
                     {
-                        attackContext.poisonEffect.ApplyPoisonTo(poisonReceiver);
+                        attackContext.PoisonEffect.ApplyPoisonTo(poisonReceiver);
                     }
                 }
             }
