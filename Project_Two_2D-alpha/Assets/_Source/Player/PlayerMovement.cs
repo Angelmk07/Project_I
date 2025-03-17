@@ -166,9 +166,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
         Gizmos.DrawWireSphere(wallCheck.position, 0.1f);
         Gizmos.DrawWireSphere(wallSlidePoint.position, 0.1f);
+#endif
     }
+
 }

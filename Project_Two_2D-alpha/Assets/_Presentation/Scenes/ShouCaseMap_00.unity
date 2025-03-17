@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &547969885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2291,6 +2291,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3184420236744737539, guid: 43203f7aee73c5b4e92f9c784e428863, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4037181311894709005, guid: 43203f7aee73c5b4e92f9c784e428863, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.119923
@@ -2334,6 +2338,10 @@ PrefabInstance:
     - target: {fileID: 4460712599955568684, guid: 43203f7aee73c5b4e92f9c784e428863, type: 3}
       propertyPath: m_Name
       value: scientist
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460712599955568684, guid: 43203f7aee73c5b4e92f9c784e428863, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7199723295012514333, guid: 43203f7aee73c5b4e92f9c784e428863, type: 3}
       propertyPath: canMove
