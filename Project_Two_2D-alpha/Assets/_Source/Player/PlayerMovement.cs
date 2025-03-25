@@ -5,34 +5,34 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private float DefaultSpeed;
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float airDashForce;
-    [SerializeField] private float wallDashForce;
-    [SerializeField] private float wallReleaseSpeedMultiplier = 1.5f;
-    [SerializeField] private float dashCooldown = 1f;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform wallSlidePoint;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask wallLayer;
+    public float maxSpeed;
+    public float DefaultSpeed;
+    public float jumpForce;
+    public float airDashForce;
+    public float wallDashForce;
+    public float wallReleaseSpeedMultiplier = 1.5f;
+    public float dashCooldown = 1f;
+    public Transform groundCheck;
+    public Transform wallCheck;
+    public Transform wallSlidePoint;
+    public LayerMask groundLayer;
+    public LayerMask wallLayer;
 
     [Header("Info")]
-    [SerializeField, ReadOnly] private bool canDash = true;
-    [SerializeField, ReadOnly] private bool isGrounded;
-    [SerializeField, ReadOnly] private bool isTouchingWall;
-    [SerializeField, ReadOnly] private bool isSlide;
-    [SerializeField, ReadOnly] private bool canMove = true;
+    public bool canDash = true;
+    public bool isGrounded;
+    public bool isTouchingWall;
+    public bool isSlide;
+    public bool canMove = true;
     public bool IsGrounded => isGrounded;
     public event Action Landed;
     public Vector3 lastPosition;
 
 
-    private float speed;
-    private float releaseSpeed;
-    [SerializeField, ReadOnly] private int jumpCount = 0;
-    [SerializeField, ReadOnly] private const int maxJumpCount = 1;
+    public float speed;
+    public float releaseSpeed;
+    public int jumpCount = 0;
+    public int maxJumpCount = 1;
 
     private void Start()
     {
