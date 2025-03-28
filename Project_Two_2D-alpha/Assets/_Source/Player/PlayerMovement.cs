@@ -34,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
     public int jumpCount = 0;
     public int maxJumpCount = 1;
 
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     private void Start()
     {
         speed = DefaultSpeed;
@@ -68,16 +73,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canMove)
         {
-            if (rb != null)
-            {
-                rb.velocity = new Vector2(inputAction * speed, rb.velocity.y);
-            }
+            rb.velocity = new Vector2(inputAction * speed, rb.velocity.y);
 
-            if (inputAction > 0 && !isSlide)
+            if (inputAction > 0)
             {
                 transform.localScale = new Vector2(1, 1);
             }
-            else if (inputAction < 0 && !isSlide)
+            else if (inputAction < 0)
             {
                 transform.localScale = new Vector2(-1, 1);
             }
