@@ -7,17 +7,24 @@ using UnityEngine.UI;
 
 public class SkillTreeButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] private PlayerStatistics playerStatistics;
+    [SerializeField] private int prise;
     [SerializeField] private string description;
     [SerializeField] private List<Button> buttons;
     [SerializeField] private TMP_Text descriptionText;
 
     public void OnButtonClicked()
     {
-        if (buttons.Count != 0)
+        if (playerStatistics.money >= prise)
         {
-            for (int i = 0; i < buttons.Count; i++)
+            playerStatistics.money -= prise;
+
+            if (buttons.Count != 0)
             {
-                buttons[i].interactable = true;
+                for (int i = 0; i < buttons.Count; i++)
+                {
+                    buttons[i].interactable = true;
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyStatistics : MonoBehaviour, IStatistics
 {
     [SerializeField] private int health;
+    [SerializeField] private int giveMoney;
     [SerializeField] private float speed;
     [SerializeField] private float detectionRange;
     [SerializeField] private GameObject player;
@@ -41,6 +42,7 @@ public class EnemyStatistics : MonoBehaviour, IStatistics
 
         if (health <= 0)
         {
+            player.GetComponent<PlayerStatistics>().money += giveMoney;
             Destroy(gameObject);
         }
     }
